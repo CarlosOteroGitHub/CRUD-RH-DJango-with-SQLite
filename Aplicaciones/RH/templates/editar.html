@@ -1,0 +1,32 @@
+{% extends "./header.html" %}
+
+{% block title %} Empresa - Home {% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-md-4 offset-md-4">
+		<h1>Editar Empleado</h1>
+		<div class="card">
+			<div class="card-body">
+				<form action="/editarEmpleado/" method="POST">{% csrf_token %}
+					<div class="form-group py-2">
+						<input type="number" name="txtID" class="form-control" value="{{empleado.id_empleado}}" placeholder="ID del empleado..." minlength="1" maxlength="5" readonly required>
+					</div>
+					<div class="form-group py-2">
+						<input type="text" name="txtNombre" class="form-control" value="{{empleado.nombre}}" placeholder="Nombre del empleado..." minlength="1" maxlength="50" required>
+					</div>
+					<div class="form-group py-2">
+						<input type="date" name="txtNacimiento" class="form-control" value="{{empleado.nacimiento}}" placeholder="Nacimiento del empleado..." required>
+					</div>
+					<div class="form-group py-2">
+						<input type="text" name="txtDescripcion" class="form-control" value="{{empleado.descripcion}}" placeholder="Descripción del empleado..." required>
+					</div>
+					<div class="form-group py-2">
+						<button type="submit" class="btn btn-primary btn-block text-white">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

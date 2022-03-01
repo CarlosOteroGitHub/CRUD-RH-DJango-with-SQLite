@@ -1,0 +1,69 @@
+{% extends "./header.html" %}
+
+{% block title %} Empresa - Home {% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-sm 12 col-md 6 col-lg 4 col-xl-4">
+		{% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+		<h1>Agregar Empleado</h1>
+		<div class="card">
+			<div class="card-body">
+				<form action="/insertarEmpleado/" method="POST">{% csrf_token %}
+					<div class="form-group py-2">
+						<input type="number" name="txtID" class="form-control" placeholder="ID del empleado..." minlength="1" maxlength="5" required>
+					</div>
+					<div class="form-group py-2">
+						<input type="text" name="txtNombre" class="form-control" placeholder="Nombre del empleado..." minlength="1" maxlength="50" required>
+					</div>
+					<div class="form-group py-2">
+						<input type="date" name="txtNacimiento" class="form-control" placeholder="Nacimiento del empleado..." required>
+					</div>
+					<div class="form-group py-2">
+						<input type="text" name="txtDescripcion" class="form-control" placeholder="Descripción del empleado..." required>
+					</div>
+					<div class="form-group py-2">
+						<button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm 12 col-md 6 col-lg 8 col-xl-8">
+		<h1>Listado de Empleados</h1>
+		<div class="table-responsive py-2">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Nacimiento</th>
+						<th>Descripción</th>
+						<th>Editar</th>
+						<th>Eliminar</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for c in empleados %}
+					<tr>
+						<td>{{c.id_empleado}}</td>
+						<td>{{c.nombre}}</td>
+						<td>{{c.nacimiento}}</td>
+						<td>{{c.descripcion}}</td>
+						<td><a href="edicionEmpleado/{{c.id_empleado}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarEmpleado/{{c.id_empleado}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
